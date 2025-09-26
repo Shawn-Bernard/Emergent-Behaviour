@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class Flock : MonoBehaviour
 {
+    public TextMeshProUGUI agentCountText;
 
     public FlockAgent agentPrefab;
     
@@ -45,6 +46,8 @@ public class Flock : MonoBehaviour
             newAgent.name = "Agent " + i;
             agents.Add(newAgent);
         }
+
+        agentCountText.text = $"Fish count : {agentCount}";
     }
 
     // Update is called once per frame
