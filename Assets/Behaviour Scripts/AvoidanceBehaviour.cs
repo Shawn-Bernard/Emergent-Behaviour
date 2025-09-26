@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+//This give u an option in the asset menu to make the scriptable object
 [CreateAssetMenu(menuName = "Flock/Behaviour/Avoidance")]
 public class AvoidanceBehaviour : FlockBehaviour
 {
@@ -15,15 +16,21 @@ public class AvoidanceBehaviour : FlockBehaviour
         Vector2 avoidanceMove = Vector2.zero;
 
         int avoidanceCount = 0;
-        foreach (Transform Item in context)
+
+        // Tracking how many neighbors are too close
+        foreach (Transform transform in context)
         {
-            if(Vector2.SqrMagnitude(Item.position - agent.transform.position) < flock.SqaureAvoidRadius)
+            // If neighbours are within distance
+            if(Vector2.SqrMagnitude(transform.position - agent.transform.position) < flock.SqaureAvoidRadius)
             {
-                avoidanceCount++;
-                avoidanceMove += (Vector2)(agent.transform.position - Item.position);
+                avoidanceCount++; // Counts how many neighbors to avoid
+
+                // Adding a vector pointing away from the neighbour
+                avoidanceMove += (Vector2)(agent.transform.position - transform.position);
             }
             
         }
+        // getting the average if theres neighbours  
         if (avoidanceCount > 0)
             avoidanceMove /= avoidanceCount;
 

@@ -11,12 +11,15 @@ public class AlignmentBehaviour : FlockBehaviour
             return agent.transform.up;
         }
 
-        // adding all point together and average 
+        // adding all point together and average
         Vector2 alignmentMove = Vector2.zero;
+
+        // Foreach neighbour add to the alignment move
         foreach (Transform t in context)
         {
             alignmentMove += (Vector2)t.transform.up;
         }
+        // Getting the average direction
         alignmentMove /= context.Count;
 
         return alignmentMove;

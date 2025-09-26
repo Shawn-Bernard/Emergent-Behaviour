@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+//This give u an option in the asset menu to make the scriptable object
 [CreateAssetMenu(menuName = "Flock/Behaviour/Cohesion")]
 public class CohesionBehaviour : FlockBehaviour
 {
@@ -15,8 +16,10 @@ public class CohesionBehaviour : FlockBehaviour
         Vector2 cohesionMove = Vector2.zero;
         foreach (Transform item in context)
         {
+            // adding up all neighbours position 
             cohesionMove += (Vector2)item.position;
         }
+        // Getting the average position 
         cohesionMove /= context.Count;
 
         // Offsetting from agent position

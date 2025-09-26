@@ -33,10 +33,12 @@ public class Flock : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Getting the sqaured values from the start
         sqaureMaxSpeed = maxSpeed * maxSpeed;
         sqaureNeighbourRadius = neighbourRadius * neighbourRadius;
-        sqaureAvoidRadius = sqaureAvoidRadius * avoidRadiusMultiplier * avoidRadiusMultiplier;
+        sqaureAvoidRadius = sqaureNeighbourRadius * avoidRadiusMultiplier * avoidRadiusMultiplier;
 
+        // Spawing the agents 
         for (int i = 0; i < agentCount; i++)
         {
             FlockAgent newAgent = Instantiate(agentPrefab, Random.insideUnitCircle * agentCount * AgentDensity, Quaternion.identity,transform);
@@ -48,11 +50,17 @@ public class Flock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Updating all my agent cause I hate frames :D
         foreach(FlockAgent agent in agents)
         {
+            // Getting the list of neighbours for this agent 
             List<Transform> context = GetNearbyObjects(agent);
+
+            // Calculate movement using my behaviour 
             Vector2 moveSpeed = behaviour.CalculateMove(agent, context,this);
+
             moveSpeed *= Speed;
+            
             if (moveSpeed.sqrMagnitude > sqaureMaxSpeed)
             {
                 moveSpeed = moveSpeed.normalized * maxSpeed;
